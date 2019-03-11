@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NiceBottomBar">
+        <attr name="menu" format="reference" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="indicatorColor" format="color" />
+        <attr name="indicatorWidth" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="textColorActive" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="iconSize" format="dimension" />
+        <attr name="iconMargin" format="dimension" />
+        <attr name="activeItem" format="integer" />
+	    <attr name="indicatorInterpolator" format="enum">
+		    <enum name="accelerate" value="0"/>
+		    <enum name="decelerate" value="1"/>
+		    <enum name="accelerateDecelerate" value="2"/>
+		    <enum name="anticipate" value="3"/>
+		    <enum name="anticipateOvershoot" value="4"/>
+		    <enum name="linear" value="5"/>
+		    <enum name="overshoot" value="6"/>
+	    </attr>
+	    <attr name="badgeColor" format="color" />
+    </declare-styleable>
+</resources>

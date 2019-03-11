@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<item
+		android:id="@+id/item2"
+		android:title="@string/servers"
+		android:icon="@drawable/ic_dns_black_24dp" />
+
+	<item
+		android:id="@+id/item1"
+		android:title="@string/search"
+		android:icon="@drawable/ic_search_black_24dp" />
+
+	<item
+		android:id="@+id/item3"
+		android:title="@string/billing"
+		android:icon="@drawable/ic_receipt_black_24dp" />
+
+	<item
+		android:id="@+id/item0"
+		android:title="@string/account"
+		android:icon="@drawable/ic_account_circle_black_24dp" />
+</menu>
