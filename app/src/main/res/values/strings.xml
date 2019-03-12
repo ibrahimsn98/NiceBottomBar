@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NiceBottomBar</string>
+
+	<string name="account">Account</string>
+	<string name="servers">Servers</string>
+	<string name="search">Search</string>
+	<string name="billing">Billing</string>
+</resources>
