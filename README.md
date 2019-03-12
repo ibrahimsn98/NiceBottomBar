@@ -2,6 +2,8 @@
 # NiceBottomBar
 A lightweight Android material bottom navigation bar library
 
+[![](https://jitpack.io/v/ibrahimsn98/NiceBottomBar.svg)](https://jitpack.io/#ibrahimsn98/NiceBottomBar)
+
 ##  GIF
 <img src="https://github.com/ibrahimsn98/NiceBottomBar/blob/master/art/gif.gif?raw=true"/>
 
@@ -83,6 +85,6 @@ A lightweight Android material bottom navigation bar library
 	}
 	
 	dependencies {
-	        implementation 'com.github.ibrahimsn98:NiceBottomBar:1.0'
+	        implementation 'com.github.ibrahimsn98:NiceBottomBar:1.1'
 	}
 ```
