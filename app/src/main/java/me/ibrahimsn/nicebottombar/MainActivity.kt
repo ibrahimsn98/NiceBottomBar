@@ -12,13 +12,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bottomBar.setActiveItem(1)
+        bottomBar.setBadge(2)
+        bottomBar.removeBadge(2)
 
         bottomBar.setBottomBarCallback(object: NiceBottomBar.BottomBarCallback {
             override fun onItemClick(pos: Int) {
-                if (pos == 0)
-                    bottomBar.setBadge(2)
-                if (pos == 1)
-                    bottomBar.removeBadge(2)
+
             }
         })
     }
