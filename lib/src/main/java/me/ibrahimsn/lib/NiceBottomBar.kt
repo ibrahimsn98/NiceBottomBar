@@ -45,6 +45,7 @@ class NiceBottomBar : View {
         style = Paint.Style.STROKE
         strokeWidth = 10f
         color = barIndicatorColor
+        strokeCap = Paint.Cap.ROUND
     }
 
     private val paintText= Paint().apply {

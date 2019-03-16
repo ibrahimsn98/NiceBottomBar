@@ -52,11 +52,11 @@ A lightweight Android material bottom navigation bar library
 	bottomBar.setBottomBarCallback(object: NiceBottomBar.BottomBarCallback {
 		override fun onItemSelect(pos: Int) {
 
-                }
+		}
 
-                override fun onItemReselect(pos: Int) {
+		override fun onItemReselect(pos: Int) {
 
-                }
+		}
 	})
 ```
 
@@ -89,6 +89,6 @@ A lightweight Android material bottom navigation bar library
 	}
 	
 	dependencies {
-	        implementation 'com.github.ibrahimsn98:NiceBottomBar:1.2'
+	        implementation 'com.github.ibrahimsn98:NiceBottomBar:1.3'
 	}
 ```
