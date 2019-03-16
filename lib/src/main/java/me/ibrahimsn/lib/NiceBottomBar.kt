@@ -143,8 +143,11 @@ class NiceBottomBar : View {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_UP)
             for ((i, item) in items.withIndex())
-                if (i != this.activeItem && item.rect.contains(event.x, event.y))
-                    setActiveItem(i)
+                if (item.rect.contains(event.x, event.y))
+                    if (i != this.activeItem)
+                        setActiveItem(i)
+                    else if (callback != null)
+                        callback!!.onItemReselect(i)
 
         return true
     }
@@ -192,7 +195,7 @@ class NiceBottomBar : View {
         activeItem = pos
 
         if (callback != null)
-            callback!!.onItemClick(pos)
+            callback!!.onItemSelect(pos)
 
         animateIndicator(pos)
         setItemColors()
@@ -235,6 +238,7 @@ class NiceBottomBar : View {
     }
 
     interface BottomBarCallback {
-        fun onItemClick(pos: Int)
+        fun onItemSelect(pos: Int)
+        fun onItemReselect(pos: Int)
     }
 }

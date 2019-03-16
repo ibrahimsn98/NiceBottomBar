@@ -50,9 +50,13 @@ A lightweight Android material bottom navigation bar library
 	bottomBar.removeBadge(2)
 
 	bottomBar.setBottomBarCallback(object: NiceBottomBar.BottomBarCallback {
-		override fun onItemClick(pos: Int) {
+		override fun onItemSelect(pos: Int) {
 
-		}
+        }
+
+        override fun onItemReselect(pos: Int) {
+
+        }
 	})
 ```
 
@@ -85,6 +89,6 @@ A lightweight Android material bottom navigation bar library
 	}
 	
 	dependencies {
-	        implementation 'com.github.ibrahimsn98:NiceBottomBar:1.1'
+	        implementation 'com.github.ibrahimsn98:NiceBottomBar:1.2'
 	}
 ```
