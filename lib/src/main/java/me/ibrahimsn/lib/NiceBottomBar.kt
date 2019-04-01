@@ -145,9 +145,11 @@ class NiceBottomBar : View {
         if (event.action == MotionEvent.ACTION_UP)
             for ((i, item) in items.withIndex())
                 if (item.rect.contains(event.x, event.y))
-                    if (i != this.activeItem)
+                    if (i != this.activeItem) {
                         setActiveItem(i)
-                    else if (callback != null)
+                        if (callback != null)
+                            callback!!.onItemSelect(i)
+                    } else if (callback != null)
                         callback!!.onItemReselect(i)
 
         return true
@@ -194,9 +196,6 @@ class NiceBottomBar : View {
 
     fun setActiveItem(pos: Int) {
         activeItem = pos
-
-        if (callback != null)
-            callback!!.onItemSelect(pos)
 
         animateIndicator(pos)
         setItemColors()

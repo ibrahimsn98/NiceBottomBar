@@ -33,18 +33,10 @@ class BottomBarParser(private val context: Context, res: Int) {
         var itemDrawable: Drawable? = null
         for (i in 0 until attributeCount) {
             when (parser.getAttributeName(i)) {
-                "title" -> itemText = getTitle(parser, i)
-                "icon" -> itemDrawable = getIcon(parser, i)
+                "title" -> itemText = context.getString(parser.getAttributeResourceValue(i, 0))
+                "icon" -> itemDrawable = ContextCompat.getDrawable(context, parser.getAttributeResourceValue(i, 0))!!
             }
         }
         return BottomBarItem(itemText!!, itemDrawable!!)
-    }
-
-    private fun getIcon(parser: XmlResourceParser, i: Int): Drawable {
-        return ContextCompat.getDrawable(context, parser.getAttributeResourceValue(i, 0))!!
-    }
-
-    private fun getTitle(parser: XmlResourceParser, i: Int): String {
-        return context.getString(parser.getAttributeResourceValue(i, 0))
     }
 }
