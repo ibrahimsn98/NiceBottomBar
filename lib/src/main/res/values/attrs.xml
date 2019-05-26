@@ -5,6 +5,7 @@
         <attr name="backgroundColor" format="color" />
         <attr name="indicatorColor" format="color" />
         <attr name="indicatorWidth" format="dimension" />
+        <attr name="indicatorEnabled" format="boolean" />
         <attr name="textColor" format="color" />
         <attr name="textColorActive" format="color" />
         <attr name="textSize" format="dimension" />

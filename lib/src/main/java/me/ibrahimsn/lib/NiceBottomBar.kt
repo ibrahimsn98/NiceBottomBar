@@ -26,6 +26,7 @@ class NiceBottomBar : View {
     private var barIndicatorColor = Color.parseColor("#426dfe")
     private var barIndicatorInterpolator = 4
     private var barIndicatorWidth = d2p(50f)
+    private var barIndicatorEnabled = true
     private var itemIconSize = d2p(18f)
     private var itemIconMargin = d2p(3f)
     private var itemTextColor = Color.parseColor("#444444")
@@ -70,6 +71,7 @@ class NiceBottomBar : View {
         barBackgroundColor = typedArray.getColor(R.styleable.NiceBottomBar_backgroundColor, this.barBackgroundColor)
         barIndicatorColor = typedArray.getColor(R.styleable.NiceBottomBar_indicatorColor, this.barIndicatorColor)
         barIndicatorWidth = typedArray.getDimension(R.styleable.NiceBottomBar_indicatorWidth, this.barIndicatorWidth)
+        barIndicatorEnabled = typedArray.getBoolean(R.styleable.NiceBottomBar_indicatorEnabled, this.barIndicatorEnabled)
         itemTextColor = typedArray.getColor(R.styleable.NiceBottomBar_textColor, this.itemTextColor)
         itemTextColorActive = typedArray.getColor(R.styleable.NiceBottomBar_textColorActive, this.itemTextColorActive)
         itemTextSize = typedArray.getDimension(R.styleable.NiceBottomBar_textSize, this.itemTextSize)
@@ -135,8 +137,9 @@ class NiceBottomBar : View {
         }
 
         // Draw indicator
-        canvas.drawLine(indicatorLocation - barIndicatorWidth/2, height - 5.0f,
-            indicatorLocation + barIndicatorWidth/2, height - 5.0f, paintIndicator)
+        if (barIndicatorEnabled)
+            canvas.drawLine(indicatorLocation - barIndicatorWidth/2, height - 5.0f,
+                indicatorLocation + barIndicatorWidth/2, height - 5.0f, paintIndicator)
     }
 
     // Handle item clicks
