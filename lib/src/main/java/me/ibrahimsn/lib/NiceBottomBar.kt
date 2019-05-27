@@ -16,6 +16,7 @@ import android.annotation.SuppressLint
 import android.animation.ArgbEvaluator
 import android.graphics.*
 import android.os.Build
+import android.support.v4.content.res.ResourcesCompat
 
 class NiceBottomBar : View {
 
@@ -92,8 +93,7 @@ class NiceBottomBar : View {
         paintBadge.color = itemBadgeColor
 
         if (itemFontFamily != 0)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                paintText.typeface = resources.getFont(itemFontFamily)
+            paintText.typeface = ResourcesCompat.getFont(context, itemFontFamily)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

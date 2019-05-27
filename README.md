@@ -89,6 +89,6 @@ A lightweight Android material bottom navigation bar library
 	}
 	
 	dependencies {
-	        implementation 'com.github.ibrahimsn98:NiceBottomBar:1.3'
+	        implementation 'com.github.ibrahimsn98:NiceBottomBar:1.8'
 	}
 ```

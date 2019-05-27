@@ -12,6 +12,7 @@
 		android:layout_height="60dp"
 		android:layout_gravity="bottom"
 	    app:menu="@menu/bottom_menu"
+		app:itemFontFamily="@font/quicksand"
 	    app:indicatorInterpolator="anticipateOvershoot" />
 
 </FrameLayout>
