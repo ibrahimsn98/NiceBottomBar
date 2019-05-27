@@ -1,10 +1,6 @@
 package me.ibrahimsn.lib
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import android.animation.ValueAnimator
@@ -18,6 +14,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.MotionEvent
 import android.annotation.SuppressLint
 import android.animation.ArgbEvaluator
+import android.graphics.*
 
 class NiceBottomBar : View {
 
@@ -33,6 +30,7 @@ class NiceBottomBar : View {
     private var itemTextColorActive = Color.parseColor("#426dfe")
     private var itemTextSize = d2p(11.0f)
     private var itemBadgeColor = itemTextColorActive
+    private var itemFontFamilyStyle = 0
     private var activeItem = 0
 
     private var items = listOf<BottomBarItem>()
@@ -80,6 +78,7 @@ class NiceBottomBar : View {
         activeItem = typedArray.getInt(R.styleable.NiceBottomBar_activeItem, this.activeItem)
         barIndicatorInterpolator = typedArray.getInt(R.styleable.NiceBottomBar_indicatorInterpolator, this.barIndicatorInterpolator)
         itemBadgeColor = typedArray.getColor(R.styleable.NiceBottomBar_badgeColor, this.itemBadgeColor)
+        itemFontFamilyStyle = typedArray.getResourceId(R.styleable.NiceBottomBar_fontFamily, this.itemFontFamilyStyle)
         items = BottomBarParser(context, typedArray.getResourceId(R.styleable.NiceBottomBar_menu, 0)).parse()
         typedArray.recycle()
 
@@ -90,6 +89,9 @@ class NiceBottomBar : View {
         paintText.color = itemTextColor
         paintText.textSize = itemTextSize
         paintBadge.color = itemBadgeColor
+
+        if (itemFontFamilyStyle != 0)
+            paintText.typeface = Typeface.defaultFromStyle(itemFontFamilyStyle)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
