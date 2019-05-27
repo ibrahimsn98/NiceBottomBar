@@ -15,6 +15,7 @@ import android.view.MotionEvent
 import android.annotation.SuppressLint
 import android.animation.ArgbEvaluator
 import android.graphics.*
+import android.os.Build
 
 class NiceBottomBar : View {
 
@@ -30,7 +31,7 @@ class NiceBottomBar : View {
     private var itemTextColorActive = Color.parseColor("#426dfe")
     private var itemTextSize = d2p(11.0f)
     private var itemBadgeColor = itemTextColorActive
-    private var itemFontFamilyStyle = 0
+    private var itemFontFamily = 0
     private var activeItem = 0
 
     private var items = listOf<BottomBarItem>()
@@ -78,7 +79,7 @@ class NiceBottomBar : View {
         activeItem = typedArray.getInt(R.styleable.NiceBottomBar_activeItem, this.activeItem)
         barIndicatorInterpolator = typedArray.getInt(R.styleable.NiceBottomBar_indicatorInterpolator, this.barIndicatorInterpolator)
         itemBadgeColor = typedArray.getColor(R.styleable.NiceBottomBar_badgeColor, this.itemBadgeColor)
-        itemFontFamilyStyle = typedArray.getResourceId(R.styleable.NiceBottomBar_fontFamily, this.itemFontFamilyStyle)
+        itemFontFamily = typedArray.getResourceId(R.styleable.NiceBottomBar_itemFontFamily, this.itemFontFamily)
         items = BottomBarParser(context, typedArray.getResourceId(R.styleable.NiceBottomBar_menu, 0)).parse()
         typedArray.recycle()
 
@@ -90,8 +91,9 @@ class NiceBottomBar : View {
         paintText.textSize = itemTextSize
         paintBadge.color = itemBadgeColor
 
-        if (itemFontFamilyStyle != 0)
-            paintText.typeface = Typeface.defaultFromStyle(itemFontFamilyStyle)
+        if (itemFontFamily != 0)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                paintText.typeface = resources.getFont(itemFontFamily)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
