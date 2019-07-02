@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "me.ibrahimsn.nicebottombar"
-        minSdkVersion 21
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"

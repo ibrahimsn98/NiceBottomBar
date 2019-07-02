@@ -15,7 +15,6 @@ import android.view.MotionEvent
 import android.annotation.SuppressLint
 import android.animation.ArgbEvaluator
 import android.graphics.*
-import android.os.Build
 import android.support.v4.content.res.ResourcesCompat
 
 class NiceBottomBar : View {
@@ -103,10 +102,6 @@ class NiceBottomBar : View {
         val itemWidth = width / items.size
 
         for (item in items) {
-            if (paintText.measureText(item.title) > itemWidth)
-                while (paintText.measureText(item.title) > itemWidth)
-                    item.title = item.title.substring(0, -1)
-
             item.rect = RectF(lastX, 0f, itemWidth + lastX, height.toFloat())
             lastX += itemWidth
         }
