@@ -50,6 +50,11 @@ A lightweight Android material bottom navigation bar library
 	bottomBar.removeBadge(2)
 
 	bottomBar.setBottomBarCallback(object: NiceBottomBar.BottomBarCallback {
+	
+        override fun onItemLongClick(pos: Int) {
+                        bottomBar.removeBadge(pos)
+        }
+        
 		override fun onItemSelect(pos: Int) {
 
 		}
