@@ -16,6 +16,7 @@ import android.annotation.SuppressLint
 import android.animation.ArgbEvaluator
 import android.graphics.*
 import android.support.v4.content.res.ResourcesCompat
+import kotlin.math.abs
 
 class NiceBottomBar : View {
 
@@ -33,6 +34,7 @@ class NiceBottomBar : View {
     private var itemBadgeColor = itemTextColorActive
     private var itemFontFamily = 0
     private var activeItem = 0
+    private var longPressTime = 500//represent long press time,when press time > longPressTime call the function callback.onItemLongClick
 
     private var items = listOf<BottomBarItem>()
     private var callback: BottomBarCallback? = null
@@ -144,7 +146,7 @@ class NiceBottomBar : View {
     // Handle item clicks
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_UP)
+        if (event.action == MotionEvent.ACTION_UP&&abs(event.downTime-event.eventTime)< longPressTime)
             for ((i, item) in items.withIndex())
                 if (item.rect.contains(event.x, event.y))
                     if (i != this.activeItem) {
@@ -153,9 +155,17 @@ class NiceBottomBar : View {
                             callback!!.onItemSelect(i)
                     } else if (callback != null)
                         callback!!.onItemReselect(i)
-
+        if (event.action==MotionEvent.ACTION_MOVE||event.action==MotionEvent.ACTION_UP){
+            if (abs(event.downTime-event.eventTime)> longPressTime) {
+                for ((i, item) in items.withIndex())
+                    if (item.rect.contains(event.x, event.y))
+                        if (callback!=null)
+                            callback!!.onItemLongClick(i)
+            }
+        }
         return true
     }
+
 
     // Draw item badge
     private fun drawBadge(canvas: Canvas, item: BottomBarItem) {
@@ -239,8 +249,14 @@ class NiceBottomBar : View {
         this.callback = callback
     }
 
-    interface BottomBarCallback {
+    fun setLongPressTime(time:Int){
+        longPressTime = time
+    }
+
+
+    interface BottomBarCallback  {
         fun onItemSelect(pos: Int)
         fun onItemReselect(pos: Int)
+        fun onItemLongClick(pos:Int)
     }
 }
