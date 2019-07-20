@@ -2,6 +2,7 @@ package me.ibrahimsn.nicebottombar
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import me.ibrahimsn.lib.NiceBottomBar
 
@@ -16,13 +17,16 @@ class MainActivity : AppCompatActivity() {
         bottomBar.removeBadge(2)
 
         bottomBar.setBottomBarCallback(object: NiceBottomBar.BottomBarCallback {
+            override fun onItemLongClick(pos: Int) {
+                bottomBar.removeBadge(pos)
+            }
             override fun onItemSelect(pos: Int) {
 
             }
-
             override fun onItemReselect(pos: Int) {
-
+                bottomBar.setBadge(pos)
             }
+
         })
     }
 }
