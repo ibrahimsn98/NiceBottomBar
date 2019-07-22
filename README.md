@@ -3,6 +3,7 @@
 A lightweight Android material bottom navigation bar library
 
 [![](https://jitpack.io/v/ibrahimsn98/NiceBottomBar.svg)](https://jitpack.io/#ibrahimsn98/NiceBottomBar)
+[![API](https://img.shields.io/badge/API-22%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=22)
 
 ##  GIF
 <img src="https://github.com/ibrahimsn98/NiceBottomBar/blob/master/art/gif.gif?raw=true"/>
