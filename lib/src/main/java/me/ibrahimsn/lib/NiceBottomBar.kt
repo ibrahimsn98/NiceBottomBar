@@ -16,6 +16,7 @@ import android.annotation.SuppressLint
 import android.animation.ArgbEvaluator
 import android.graphics.*
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import kotlin.math.abs
 
 class NiceBottomBar : View {
@@ -124,7 +125,7 @@ class NiceBottomBar : View {
                 item.rect.centerX().toInt() + itemIconSize.toInt() / 2,
                 height / 2 - itemIconMargin.toInt() / 2)
 
-            item.icon.setTint(if (i == activeItem) currentActiveItemColor else itemTextColor)
+            DrawableCompat.setTint(item.icon , if (i == activeItem) currentActiveItemColor else itemTextColor)
             item.icon.draw(canvas)
 
             // Draw item title
