@@ -15,7 +15,8 @@ import android.view.MotionEvent
 import android.annotation.SuppressLint
 import android.animation.ArgbEvaluator
 import android.graphics.*
-import android.support.v4.content.res.ResourcesCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import kotlin.math.abs
 
 class NiceBottomBar : View {
@@ -26,6 +27,7 @@ class NiceBottomBar : View {
     private var barIndicatorInterpolator = 4
     private var barIndicatorWidth = d2p(50f)
     private var barIndicatorEnabled = true
+    private var barIndicatorGravity = 1    // 0 -> TOP , 1 -> BOTTOM
     private var itemIconSize = d2p(18f)
     private var itemIconMargin = d2p(3f)
     private var itemTextColor = Color.parseColor("#444444")
@@ -80,6 +82,7 @@ class NiceBottomBar : View {
         itemIconMargin = typedArray.getDimension(R.styleable.NiceBottomBar_iconMargin, this.itemIconMargin)
         activeItem = typedArray.getInt(R.styleable.NiceBottomBar_activeItem, this.activeItem)
         barIndicatorInterpolator = typedArray.getInt(R.styleable.NiceBottomBar_indicatorInterpolator, this.barIndicatorInterpolator)
+        barIndicatorGravity = typedArray.getInt(R.styleable.NiceBottomBar_indicatorGravity, this.barIndicatorGravity)
         itemBadgeColor = typedArray.getColor(R.styleable.NiceBottomBar_badgeColor, this.itemBadgeColor)
         itemFontFamily = typedArray.getResourceId(R.styleable.NiceBottomBar_itemFontFamily, this.itemFontFamily)
         items = BottomBarParser(context, typedArray.getResourceId(R.styleable.NiceBottomBar_menu, 0)).parse()
@@ -116,21 +119,22 @@ class NiceBottomBar : View {
         super.onDraw(canvas)
 
         val textHeight = (paintText.descent() + paintText.ascent()) / 2
+        val additionalTopMargin = if (barIndicatorGravity == 1) 0f else 10f // push the item components from the top a bit if the indicator is at the top
 
         for ((i, item) in items.withIndex()) {
             item.icon.mutate()
             item.icon.setBounds(item.rect.centerX().toInt() - itemIconSize.toInt() / 2,
-                height / 2 - itemIconSize.toInt() - itemIconMargin.toInt() / 2,
+                height / 2 - itemIconSize.toInt() - itemIconMargin.toInt() / 2 + additionalTopMargin.toInt(),
                 item.rect.centerX().toInt() + itemIconSize.toInt() / 2,
-                height / 2 - itemIconMargin.toInt() / 2)
+                height / 2 - itemIconMargin.toInt() / 2 + additionalTopMargin.toInt())
 
-            item.icon.setTint(if (i == activeItem) currentActiveItemColor else itemTextColor)
+            DrawableCompat.setTint(item.icon , if (i == activeItem) currentActiveItemColor else itemTextColor)
             item.icon.draw(canvas)
 
             // Draw item title
             this.paintText.color = if (i == activeItem) currentActiveItemColor else itemTextColor
             canvas.drawText(item.title, item.rect.centerX(),
-                item.rect.centerY() - textHeight + itemIconSize / 2 + this.itemIconMargin / 2, paintText)
+                item.rect.centerY() - textHeight + itemIconSize / 2 + (this.itemIconMargin / 2) + additionalTopMargin, paintText)
 
             // Draw item badge
             if (item.badgeSize > 0)
@@ -139,8 +143,8 @@ class NiceBottomBar : View {
 
         // Draw indicator
         if (barIndicatorEnabled)
-            canvas.drawLine(indicatorLocation - barIndicatorWidth/2, height - 5.0f,
-                indicatorLocation + barIndicatorWidth/2, height - 5.0f, paintIndicator)
+            canvas.drawLine(indicatorLocation - barIndicatorWidth/2, (if (barIndicatorGravity == 1) height - 5.0f else 5f),
+                indicatorLocation + barIndicatorWidth/2, (if (barIndicatorGravity == 1) height - 5.0f else 5f), paintIndicator)
     }
 
     // Handle item clicks
