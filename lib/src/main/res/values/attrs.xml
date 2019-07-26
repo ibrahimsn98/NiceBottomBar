@@ -23,5 +23,9 @@
 		    <enum name="overshoot" value="6"/>
 	    </attr>
 	    <attr name="badgeColor" format="color" />
+        <attr name="indicatorGravity" format="enum">
+            <enum name="top" value="0" />
+            <enum name="bottom" value="1" />
+        </attr>
     </declare-styleable>
 </resources>

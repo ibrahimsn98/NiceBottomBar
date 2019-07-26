@@ -10,6 +10,7 @@
 		android:id="@+id/bottomBar"
 		android:layout_width="match_parent"
 		android:layout_height="60dp"
+		app:indicatorGravity="bottom"
 		android:layout_gravity="bottom"
 	    app:menu="@menu/bottom_menu"
 		app:itemFontFamily="@font/quicksand"
