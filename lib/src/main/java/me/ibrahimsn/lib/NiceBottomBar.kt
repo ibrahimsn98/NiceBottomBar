@@ -15,7 +15,7 @@ import android.view.MotionEvent
 import android.annotation.SuppressLint
 import android.animation.ArgbEvaluator
 import android.graphics.*
-import android.support.v4.content.res.ResourcesCompat
+import androidx.core.content.res.ResourcesCompat
 import kotlin.math.abs
 
 class NiceBottomBar : View {
