@@ -27,7 +27,7 @@ class NiceBottomBar : View {
     private var barIndicatorInterpolator = 4
     private var barIndicatorWidth = d2p(50f)
     private var barIndicatorEnabled = true
-    private var barIndicatorGravity = 1    // 0 -> TOP , 1 -> BOTTOM
+    private var barIndicatorGravity = 1
     private var itemIconSize = d2p(18f)
     private var itemIconMargin = d2p(3f)
     private var itemTextColor = Color.parseColor("#444444")
@@ -36,7 +36,10 @@ class NiceBottomBar : View {
     private var itemBadgeColor = itemTextColorActive
     private var itemFontFamily = 0
     private var activeItem = 0
-    private var longPressTime = 500//represent long press time,when press time > longPressTime call the function callback.onItemLongClick
+
+    // Represent long press time, when press time > longPressTime call the function callback.onItemLongClick
+    private var longPressTime = 500
+    private val titleSideMargins = d2p(12f)
 
     private var items = listOf<BottomBarItem>()
     private var callback: BottomBarCallback? = null
@@ -107,6 +110,11 @@ class NiceBottomBar : View {
         val itemWidth = width / items.size
 
         for (item in items) {
+
+            // Prevent text overflow by shortening the item title
+            while (paintText.measureText(item.title) > (itemWidth - titleSideMargins))
+                item.title = item.title.dropLast(1)
+
             item.rect = RectF(lastX, 0f, itemWidth + lastX, height.toFloat())
             lastX += itemWidth
         }
@@ -119,7 +127,9 @@ class NiceBottomBar : View {
         super.onDraw(canvas)
 
         val textHeight = (paintText.descent() + paintText.ascent()) / 2
-        val additionalTopMargin = if (barIndicatorGravity == 1) 0f else 10f // push the item components from the top a bit if the indicator is at the top
+
+        // Push the item components from the top a bit if the indicator is at the top
+        val additionalTopMargin = if (barIndicatorGravity == 1) 0f else 10f
 
         for ((i, item) in items.withIndex()) {
             item.icon.mutate()
@@ -150,23 +160,21 @@ class NiceBottomBar : View {
     // Handle item clicks
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_UP&&abs(event.downTime-event.eventTime)< longPressTime)
+        if (event.action == MotionEvent.ACTION_UP && abs(event.downTime - event.eventTime) < longPressTime)
             for ((i, item) in items.withIndex())
                 if (item.rect.contains(event.x, event.y))
                     if (i != this.activeItem) {
                         setActiveItem(i)
-                        if (callback != null)
-                            callback!!.onItemSelect(i)
-                    } else if (callback != null)
-                        callback!!.onItemReselect(i)
-        if (event.action==MotionEvent.ACTION_MOVE||event.action==MotionEvent.ACTION_UP){
-            if (abs(event.downTime-event.eventTime)> longPressTime) {
+                        callback?.onItemSelect(i)
+                    } else
+                        callback?.onItemReselect(i)
+
+        if (event.action == MotionEvent.ACTION_MOVE || event.action == MotionEvent.ACTION_UP)
+            if (abs(event.downTime-event.eventTime)> longPressTime)
                 for ((i, item) in items.withIndex())
                     if (item.rect.contains(event.x, event.y))
-                        if (callback!=null)
-                            callback!!.onItemLongClick(i)
-            }
-        }
+                        callback?.onItemLongClick(i)
+
         return true
     }
 
@@ -175,11 +183,13 @@ class NiceBottomBar : View {
     private fun drawBadge(canvas: Canvas, item: BottomBarItem) {
         paintBadge.style = Paint.Style.FILL
         paintBadge.color = itemTextColorActive
+
         canvas.drawCircle(item.rect.centerX() + itemIconSize / 2 - 4,
             (height / 2).toFloat() - itemIconSize - itemIconMargin / 2 + 10, item.badgeSize, paintBadge)
 
         paintBadge.style = Paint.Style.STROKE
         paintBadge.color = barBackgroundColor
+
         canvas.drawCircle(item.rect.centerX() + itemIconSize / 2 - 4,
             (height / 2).toFloat() - itemIconSize - itemIconMargin / 2 + 10, item.badgeSize, paintBadge)
     }
@@ -189,8 +199,8 @@ class NiceBottomBar : View {
         if (pos > 0 && pos < items.size && items[pos].badgeSize == 0f) {
             val animator = ValueAnimator.ofFloat(0f, 15f)
             animator.duration = 100
-            animator.addUpdateListener {
-                animation -> items[pos].badgeSize = animation.animatedValue as Float
+            animator.addUpdateListener { animation ->
+                items[pos].badgeSize = animation.animatedValue as Float
                 invalidate()
             }
             animator.start()
@@ -230,8 +240,8 @@ class NiceBottomBar : View {
             else -> AnticipateOvershootInterpolator()
         }
 
-        animator.addUpdateListener {
-                animation -> indicatorLocation = animation.animatedValue as Float
+        animator.addUpdateListener { animation ->
+            indicatorLocation = animation.animatedValue as Float
             invalidate()
         }
 
@@ -253,10 +263,9 @@ class NiceBottomBar : View {
         this.callback = callback
     }
 
-    fun setLongPressTime(time:Int){
+    fun setLongPressTime(time: Int){
         longPressTime = time
     }
-
 
     interface BottomBarCallback  {
         fun onItemSelect(pos: Int)

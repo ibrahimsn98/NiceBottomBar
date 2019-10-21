@@ -74,8 +74,11 @@ A lightweight Android material bottom navigation bar library
 		android:layout_height="60dp"
 		app:menu="@menu/bottom_menu"
 		app:backgroundColor=""
+		app:indicatorEnabled=""
 		app:indicatorColor=""
 		app:indicatorWidth=""
+		app:indicatorGravity=""
+		app:itemFontFamily=""
 		app:textColor=""
 		app:textColorActive=""
 		app:textSize=""
@@ -95,7 +98,7 @@ A lightweight Android material bottom navigation bar library
 	}
 	
 	dependencies {
-	        implementation 'com.github.ibrahimsn98:NiceBottomBar:2.0'
+	        implementation 'com.github.ibrahimsn98:NiceBottomBar:2.1'
 	}
 ```
 ## License
