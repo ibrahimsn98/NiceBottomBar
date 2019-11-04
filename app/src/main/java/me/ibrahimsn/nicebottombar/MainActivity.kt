@@ -16,17 +16,16 @@ class MainActivity : AppCompatActivity() {
         bottomBar.setBadge(2)
         bottomBar.removeBadge(2)
 
-        bottomBar.setBottomBarCallback(object: NiceBottomBar.BottomBarCallback {
-            override fun onItemLongClick(pos: Int) {
-                bottomBar.removeBadge(pos)
-            }
-            override fun onItemSelect(pos: Int) {
+        bottomBar.onItemSelected = {
+            status.text = "Item $it selected"
+        }
 
-            }
-            override fun onItemReselect(pos: Int) {
-                bottomBar.setBadge(pos)
-            }
+        bottomBar.onItemReselected = {
+            status.text = "Item $it re-selected"
+        }
 
-        })
+        bottomBar.onItemLongClick = {
+            status.text = "Item $it long click"
+        }
     }
 }

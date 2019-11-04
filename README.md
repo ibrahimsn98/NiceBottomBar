@@ -1,14 +1,17 @@
 
 # NiceBottomBar
+
 A lightweight Android material bottom navigation bar library
 
 [![](https://jitpack.io/v/ibrahimsn98/NiceBottomBar.svg)](https://jitpack.io/#ibrahimsn98/NiceBottomBar)
-[![API](https://img.shields.io/badge/API-22%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=22)
+[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
 
 ##  GIF
+
 <img src="https://github.com/ibrahimsn98/NiceBottomBar/blob/master/art/gif.gif?raw=true"/>
 
 ## Usage
+
 -    Create menu.xml under your res/menu/ folder
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -36,72 +39,81 @@ A lightweight Android material bottom navigation bar library
     
 </menu>
 ```
+
+
 - Add view into your layout file
 ```xml
-	<me.ibrahimsn.lib.NiceBottomBar
-		android:id="@+id/bottomBar"
-		android:layout_width="match_parent"
-		android:layout_height="60dp"
-		app:menu="@menu/bottom_menu" />
+<me.ibrahimsn.lib.NiceBottomBar
+	android:id="@+id/bottomBar"
+	android:layout_width="match_parent"
+	android:layout_height="60dp"
+	app:menu="@menu/bottom_menu" />
 ```
+
+
 - Use NiceBottomBar functions in your activity
 ```kotlin
-	bottomBar.setActiveItem(1)
-	bottomBar.setBadge(2)
-	bottomBar.removeBadge(2)
+bottomBar.setActiveItem(1)
+bottomBar.setBadge(2)
+bottomBar.removeBadge(2)
 
-	bottomBar.setBottomBarCallback(object: NiceBottomBar.BottomBarCallback {
-	
-	        override fun onItemLongClick(pos: Int) {
+bottomBar.onItemSelected = {
+    status.text = "Item $it selected"
+}
 
-                }
-        
-		override fun onItemSelect(pos: Int) {
+bottomBar.onItemReselected = {
+    status.text = "Item $it re-selected"
+}
 
-		}
-
-		override fun onItemReselect(pos: Int) {
-
-		}
-	})
+bottomBar.onItemLongClick = {
+    status.text = "Item $it long click"
+}
 ```
+
 
 ## Customization
+
 ```xml
-	<me.ibrahimsn.lib.NiceBottomBar
-		android:id="@+id/bottomBar"
-		android:layout_width="match_parent"
-		android:layout_height="60dp"
-		app:menu="@menu/bottom_menu"
-		app:backgroundColor=""
-		app:indicatorEnabled=""
-		app:indicatorColor=""
-		app:indicatorWidth=""
-		app:indicatorGravity=""
-		app:itemFontFamily=""
-		app:textColor=""
-		app:textColorActive=""
-		app:textSize=""
-		app:iconSize=""
-		app:iconMargin=""
-		app:activeItem=""
-		app:badgeColor=""
-		app:indicatorInterpolator="anticipateOvershoot" />
+<me.ibrahimsn.lib.NiceBottomBar
+	android:id="@+id/bottomBar"
+	android:layout_width="match_parent"
+	android:layout_height="60dp"
+	app:menu="@menu/bottom_menu"
+	app:backgroundColor=""
+	app:indicatorEnabled=""
+	app:indicatorColor=""
+	app:indicatorWidth=""
+	app:indicatorGravity=""
+	app:itemFontFamily=""
+	app:textColor=""
+	app:textColorActive=""
+	app:textSize=""
+	app:iconSize=""
+	app:iconMargin=""
+	app:activeItem=""
+	app:badgeColor=""
+	app:indicatorInterpolator="anticipateOvershoot" />
 ```
+
+
 ## Setup
+
 ```gradle
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
-	
-	dependencies {
-	        implementation 'com.github.ibrahimsn98:NiceBottomBar:2.1'
-	}
+}
+
+dependencies {
+        implementation 'com.github.ibrahimsn98:NiceBottomBar:2.2'
+}
 ```
+
+
 ## License
+
 ```
 MIT License
 
@@ -125,3 +137,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+
+> Follow me on Twitter [@ibrahimsn98](https://twitter.com/ibrahimsn98)

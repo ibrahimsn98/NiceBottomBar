@@ -17,35 +17,44 @@ import android.animation.ArgbEvaluator
 import android.graphics.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import me.ibrahimsn.lib.Constants.DEFAULT_INDICATOR_COLOR
+import me.ibrahimsn.lib.Constants.DEFAULT_TEXT_COLOR
+import me.ibrahimsn.lib.Constants.DEFAULT_TEXT_COLOR_ACTIVE
+import me.ibrahimsn.lib.Constants.WHITE_COLOR_HEX
 import kotlin.math.abs
 
 class NiceBottomBar : View {
 
     // Default attribute values
-    private var barBackgroundColor = Color.parseColor("#ffffff")
-    private var barIndicatorColor = Color.parseColor("#426dfe")
+    private var barBackgroundColor = Color.parseColor(WHITE_COLOR_HEX)
+    private var barIndicatorColor = Color.parseColor(DEFAULT_INDICATOR_COLOR)
     private var barIndicatorInterpolator = 4
     private var barIndicatorWidth = d2p(50f)
     private var barIndicatorEnabled = true
     private var barIndicatorGravity = 1
     private var itemIconSize = d2p(18f)
     private var itemIconMargin = d2p(3f)
-    private var itemTextColor = Color.parseColor("#444444")
-    private var itemTextColorActive = Color.parseColor("#426dfe")
+    private var itemTextColor = Color.parseColor(DEFAULT_TEXT_COLOR)
+    private var itemTextColorActive = Color.parseColor(DEFAULT_TEXT_COLOR_ACTIVE)
     private var itemTextSize = d2p(11.0f)
     private var itemBadgeColor = itemTextColorActive
     private var itemFontFamily = 0
     private var activeItem = 0
+
+    /**
+     * Dynamic variables
+     */
+    private var currentActiveItemColor = itemTextColor
+    private var indicatorLocation = 0f
 
     // Represent long press time, when press time > longPressTime call the function callback.onItemLongClick
     private var longPressTime = 500
     private val titleSideMargins = d2p(12f)
 
     private var items = listOf<BottomBarItem>()
-    private var callback: BottomBarCallback? = null
-
-    private var currentActiveItemColor = itemTextColor
-    private var indicatorLocation = 0f
+    var onItemSelected: (Int) -> Unit = {}
+    var onItemReselected: (Int) -> Unit = {}
+    var onItemLongClick: (Int) -> Unit = {}
 
     private val paintIndicator = Paint().apply {
         isAntiAlias = true
@@ -110,10 +119,18 @@ class NiceBottomBar : View {
         val itemWidth = width / items.size
 
         for (item in items) {
-
             // Prevent text overflow by shortening the item title
-            while (paintText.measureText(item.title) > (itemWidth - titleSideMargins))
+            var shorted = false
+            while (paintText.measureText(item.title) > (itemWidth - titleSideMargins)) {
                 item.title = item.title.dropLast(1)
+                shorted = true
+            }
+
+            // Add ellipsis character to item text if it is shorted
+            if (shorted) {
+                item.title = item.title.dropLast(1)
+                item.title += context.getString(R.string.ellipsis)
+            }
 
             item.rect = RectF(lastX, 0f, itemWidth + lastX, height.toFloat())
             lastX += itemWidth
@@ -165,19 +182,18 @@ class NiceBottomBar : View {
                 if (item.rect.contains(event.x, event.y))
                     if (i != this.activeItem) {
                         setActiveItem(i)
-                        callback?.onItemSelect(i)
+                        onItemSelected(i)
                     } else
-                        callback?.onItemReselect(i)
+                        onItemReselected(i)
 
         if (event.action == MotionEvent.ACTION_MOVE || event.action == MotionEvent.ACTION_UP)
             if (abs(event.downTime-event.eventTime)> longPressTime)
                 for ((i, item) in items.withIndex())
                     if (item.rect.contains(event.x, event.y))
-                        callback?.onItemLongClick(i)
+                        onItemLongClick(i)
 
         return true
     }
-
 
     // Draw item badge
     private fun drawBadge(canvas: Canvas, item: BottomBarItem) {
@@ -257,19 +273,5 @@ class NiceBottomBar : View {
 
     private fun d2p(dp: Float): Float {
         return resources.displayMetrics.densityDpi.toFloat() / 160.toFloat() * dp
-    }
-
-    fun setBottomBarCallback(callback: BottomBarCallback) {
-        this.callback = callback
-    }
-
-    fun setLongPressTime(time: Int){
-        longPressTime = time
-    }
-
-    interface BottomBarCallback  {
-        fun onItemSelect(pos: Int)
-        fun onItemReselect(pos: Int)
-        fun onItemLongClick(pos:Int)
     }
 }
