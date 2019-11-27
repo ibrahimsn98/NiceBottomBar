@@ -52,6 +52,8 @@ A lightweight Android material bottom navigation bar library
 
 
 - Use NiceBottomBar functions in your activity
+
+### `Kotlin`
 ```kotlin
 bottomBar.setActiveItem(1)
 bottomBar.setBadge(2)
@@ -70,6 +72,31 @@ bottomBar.onItemLongClick = {
 }
 ```
 
+### `Java`
+```java
+private NiceBottomBar niceBottomBar;
+
+niceBottomBar.setActiveItem(1);
+niceBottomBar.setBadge(2);
+niceBottomBar.removeBadge(2);
+
+niceBottomBar.setBottomBarCallback(new NiceBottomBar.BottomBarCallback() {
+	@Override
+	public void onItemSelect(int pos) {
+		status.setText("Item " + pos + " selected");
+	}
+
+	@Override
+	public void onItemReselect(int pos) {
+		status.setText("Item " + pos + " re-selected");
+	}
+
+	@Override
+	public void onItemLongClick(int pos) {
+		status.setText("Item " + pos + " long click");
+	}
+});
+```
 
 ## Customization
 
