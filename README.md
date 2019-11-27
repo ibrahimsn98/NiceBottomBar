@@ -81,20 +81,20 @@ niceBottomBar.setBadge(2);
 niceBottomBar.removeBadge(2);
 
 niceBottomBar.setBottomBarCallback(new NiceBottomBar.BottomBarCallback() {
-	@Override
-	public void onItemSelect(int pos) {
-		status.setText("Item " + pos + " selected");
-	}
+    @Override
+    public void onItemSelect(int pos) {
+        status.setText("Item " + pos + " selected");
+    }
 
-	@Override
-	public void onItemReselect(int pos) {
-		status.setText("Item " + pos + " re-selected");
-	}
+    @Override
+    public void onItemReselect(int pos) {
+        status.setText("Item " + pos + " re-selected");
+    }
 
-	@Override
-	public void onItemLongClick(int pos) {
-		status.setText("Item " + pos + " long click");
-	}
+    @Override
+    public void onItemLongClick(int pos) {
+        status.setText("Item " + pos + " long click");
+    }
 });
 ```
 
