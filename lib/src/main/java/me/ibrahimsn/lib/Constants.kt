@@ -6,6 +6,7 @@ package me.ibrahimsn.lib
 object Constants {
     const val ITEM_TAG = "item"
     const val ICON_ATTRIBUTE = "icon"
+    const val ACTIVE_ICON_ATTRIBUTE = "activeIcon"
     const val TITLE_ATTRIBUTE = "title"
     const val WHITE_COLOR_HEX = "#FFFFFF"
 

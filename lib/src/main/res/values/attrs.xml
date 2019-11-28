@@ -12,8 +12,9 @@
         <attr name="textSize" format="dimension" />
         <attr name="iconSize" format="dimension" />
         <attr name="iconMargin" format="dimension" />
+        <attr name="activeIcon" format="reference"/>
         <attr name="activeItem" format="integer" />
-	    <attr name="indicatorInterpolator" format="enum">
+        <attr name="indicatorInterpolator" format="enum">
 		    <enum name="accelerate" value="0"/>
 		    <enum name="decelerate" value="1"/>
 		    <enum name="accelerateDecelerate" value="2"/>
