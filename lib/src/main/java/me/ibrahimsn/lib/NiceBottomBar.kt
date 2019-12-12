@@ -52,6 +52,11 @@ class NiceBottomBar : View {
     private val titleSideMargins = d2p(12f)
 
     private var items = listOf<BottomBarItem>()
+
+    private var onItemSelectedListener: OnItemSelectedListener? = null
+    private var onItemReselectedListener: OnItemReselectedListener? = null
+    private var onItemLongClickListener: OnItemLongClickListener? = null
+
     var onItemSelected: (Int) -> Unit = {}
     var onItemReselected: (Int) -> Unit = {}
     var onItemLongClick: (Int) -> Unit = {}
@@ -183,14 +188,19 @@ class NiceBottomBar : View {
                     if (i != this.activeItem) {
                         setActiveItem(i)
                         onItemSelected(i)
-                    } else
+                        onItemSelectedListener?.onItemSelect(i)
+                    } else {
                         onItemReselected(i)
+                        onItemReselectedListener?.onItemReselect(i)
+                    }
 
         if (event.action == MotionEvent.ACTION_MOVE || event.action == MotionEvent.ACTION_UP)
             if (abs(event.downTime-event.eventTime)> longPressTime)
                 for ((i, item) in items.withIndex())
-                    if (item.rect.contains(event.x, event.y))
+                    if (item.rect.contains(event.x, event.y)) {
                         onItemLongClick(i)
+                        onItemLongClickListener?.onItemLongClick(i)
+                    }
 
         return true
     }
@@ -273,5 +283,17 @@ class NiceBottomBar : View {
 
     private fun d2p(dp: Float): Float {
         return resources.displayMetrics.densityDpi.toFloat() / 160.toFloat() * dp
+    }
+
+    fun setOnItemSelectedListener(listener: OnItemSelectedListener) {
+        this.onItemSelectedListener = listener
+    }
+
+    fun setOnItemReselectedListener(listener: OnItemReselectedListener) {
+        this.onItemReselectedListener = listener
+    }
+
+    fun setOnItemLongClickListener(listener: OnItemLongClickListener) {
+        this.onItemLongClickListener = listener
     }
 }

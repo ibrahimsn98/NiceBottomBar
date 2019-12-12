@@ -70,6 +70,27 @@ bottomBar.onItemLongClick = {
 }
 ```
 
+OR
+
+```kotlin
+bottomBar.setOnItemSelectedListener(object: OnItemSelectedListener {
+    override fun onItemSelect(pos: Int) {
+        status.text = "Item $pos selected"
+    }
+})
+
+bottomBar.setOnItemReselectedListener(object: OnItemReselectedListener {
+    override fun onItemReselect(pos: Int) {
+        status.text = "Item $pos re-selected"
+    }
+})
+
+bottomBar.setOnItemLongClickListener(object: OnItemLongClickListener {
+    override fun onItemLongClick(pos: Int) {
+        status.text = "Item $pos long click"
+    }
+})
+```
 
 ## Customization
 
