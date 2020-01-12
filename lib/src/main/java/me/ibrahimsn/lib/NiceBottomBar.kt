@@ -245,6 +245,10 @@ class NiceBottomBar : View {
             animator.start()
         }
     }
+    
+    fun getActiveItem(): Int {
+        return activeItem
+    }
 
     fun setActiveItem(pos: Int) {
         activeItem = pos
