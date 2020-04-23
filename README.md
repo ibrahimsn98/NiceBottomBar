@@ -92,6 +92,33 @@ bottomBar.setOnItemLongClickListener(object: OnItemLongClickListener {
 })
 ```
 
+## Use in Java
+```
+NiceBottomBar bottomBar = (NiceBottomBar) findViewById(R.id.bottomBar);
+
+bottomBar.setOnItemSelectedListener(new OnItemSelectedListener() {
+     @Override
+     public void onItemSelect(int pos) {
+	// Do action
+     }
+});
+
+bottomBar.setOnItemReselectedListener(new OnItemReselectedListener() {
+     @Override
+     public void onItemReselect(int pos) {
+	// Do action
+     }
+});
+
+bottomBar.setOnItemLongClickListener(new OnItemLongClickListener() {
+     @Override
+     public void onItemLongClick(int pos) {
+	// Do action
+     }
+});
+
+```
+
 ## Customization
 
 ```xml
