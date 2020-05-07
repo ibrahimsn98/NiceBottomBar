@@ -122,6 +122,20 @@ bottomBar.setOnItemLongClickListener(new OnItemLongClickListener() {
 ## Customization
 
 ```xml
+
+<menu ...
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+	
+	<item
+		...
+		app:activeIcon="@drawable/ic_activate"/>
+		
+	...
+	
+</menu>
+
+
+
 <me.ibrahimsn.lib.NiceBottomBar
 	android:id="@+id/bottomBar"
 	android:layout_width="match_parent"

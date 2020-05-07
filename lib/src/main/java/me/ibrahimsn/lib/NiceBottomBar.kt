@@ -154,14 +154,26 @@ class NiceBottomBar : View {
         val additionalTopMargin = if (barIndicatorGravity == 1) 0f else 10f
 
         for ((i, item) in items.withIndex()) {
-            item.icon.mutate()
-            item.icon.setBounds(item.rect.centerX().toInt() - itemIconSize.toInt() / 2,
-                height / 2 - itemIconSize.toInt() - itemIconMargin.toInt() / 2 + additionalTopMargin.toInt(),
-                item.rect.centerX().toInt() + itemIconSize.toInt() / 2,
-                height / 2 - itemIconMargin.toInt() / 2 + additionalTopMargin.toInt())
 
-            DrawableCompat.setTint(item.icon , if (i == activeItem) currentActiveItemColor else itemTextColor)
-            item.icon.draw(canvas)
+            if (i == activeItem && item.activeIcon!=null) {
+                item.activeIcon.mutate()
+                item.activeIcon.setBounds(item.rect.centerX().toInt() - itemIconSize.toInt() / 2,
+                    height / 2 - itemIconSize.toInt() - itemIconMargin.toInt() / 2 + additionalTopMargin.toInt(),
+                    item.rect.centerX().toInt() + itemIconSize.toInt() / 2,
+                    height / 2 - itemIconMargin.toInt() / 2 + additionalTopMargin.toInt())
+            } else {
+                item.icon.mutate()
+                item.icon.setBounds(item.rect.centerX().toInt() - itemIconSize.toInt() / 2,
+                    height / 2 - itemIconSize.toInt() - itemIconMargin.toInt() / 2 + additionalTopMargin.toInt(),
+                    item.rect.centerX().toInt() + itemIconSize.toInt() / 2,
+                    height / 2 - itemIconMargin.toInt() / 2 + additionalTopMargin.toInt())
+            }
+
+            DrawableCompat.setTint(if (i == activeItem && item.activeIcon!=null) item.activeIcon else item.icon, if (i == activeItem) currentActiveItemColor else itemTextColor)
+            if (i == activeItem && item.activeIcon!=null)
+                item.activeIcon.draw(canvas)
+            else
+                item.icon.draw(canvas)
 
             // Draw item title
             this.paintText.color = if (i == activeItem) currentActiveItemColor else itemTextColor
