@@ -93,7 +93,7 @@ bottomBar.setOnItemLongClickListener(object: OnItemLongClickListener {
 ```
 
 ## Use in Java
-```
+```java
 NiceBottomBar bottomBar = (NiceBottomBar) findViewById(R.id.bottomBar);
 
 bottomBar.setOnItemSelectedListener(new OnItemSelectedListener() {
